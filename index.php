@@ -38,6 +38,13 @@ $container = $containerBuilder->build();
 
 $app = AppFactory::createFromContainer($container);
 
+$debug = $_ENV['ENVIRONMENT'] === 'prod';
+if ($debug) {
+    $callableResolver = $app->getCallableResolver();
+    $responseFactory = $app->getResponseFactory();
+}
+$app->addErrorMiddleware(!$debug, !$debug, !$debug);
+
 $app->get('/rates', CurrencyController::class . ':getAllRates');
 $app->get('/rate/{currency_code}', CurrencyController::class . ':getRate');
 
