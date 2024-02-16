@@ -38,8 +38,6 @@ $container = $containerBuilder->build();
 
 $app = AppFactory::createFromContainer($container);
 
-$app->addErrorMiddleware(true, true, true);
-
 $app->get('/rates', CurrencyController::class . ':getAllRates');
 $app->get('/rate/{currency_code}', CurrencyController::class . ':getRate');
 
